@@ -18,9 +18,14 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
-    @PostMapping("/register")
-    public User register(@RequestBody Map<String,String> body){
-        return userService.registerUser(Long.parseLong(body.get("id")), body.get("name"), body.get("password"));
 
+    @PostMapping("/register")
+    public User register(@RequestBody Map<String,String> body) throws Exception{
+        return userService.registerUser(body.get("name"), body.get("password"));
+    }
+
+    @GetMapping("/{id}")
+    public User getUserByID(@PathVariable Long id) {
+        return userService.getById(id);
     }
 }
