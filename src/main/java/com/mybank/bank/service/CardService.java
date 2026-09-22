@@ -6,6 +6,7 @@ import com.mybank.bank.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -20,6 +21,10 @@ public class CardService {
         User user = userService.getById(user_id);
         Card card = cardRepository.save(new Card(generateNumber(),user));
         return card;
+    }
+
+    private Card findCardByNumber(String number) {
+        return cardRepository.findByNumber(number).orElseThrow(() -> new RuntimeException("Карты нет!"));
     }
 
 
