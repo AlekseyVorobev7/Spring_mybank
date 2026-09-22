@@ -15,24 +15,31 @@ public class CardService {
 
     @Autowired
     private UserService userService;
+    @Autowired
     private CardRepository cardRepository;
 
     public Card createCard(Long user_id) {
         User user = userService.getById(user_id);
-        Card card = cardRepository.save(new Card(generateNumber(),user));
+        Card card = cardRepository.save(new Card(generateNumber(),user, generateCvv()));
         return card;
     }
 
-    private Card findCardByNumber(String number) {
+    public Card findCardByNumber(String number) {
         return cardRepository.findByNumber(number).orElseThrow(() -> new RuntimeException("Карты нет!"));
     }
 
-
+    private String generateCvv() {
+        String number = "";
+        while (number.length() < 3) {
+            number += Integer.toString(random.nextInt(10));
+        }
+        return number;
+    }
 
 
     private String generateNumber() {
         String number = "";
-        while (number.length() <= 16) {
+        while (number.length() < 16) {
             number += Integer.toString(random.nextInt(10));
         }
         return number;
