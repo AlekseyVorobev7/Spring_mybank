@@ -13,5 +13,5 @@ spring:
     open-in-view: false
   h2:
     console:
-      enable: true
+      enabled: true
       path: /h2-console

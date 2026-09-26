@@ -21,7 +21,18 @@ public class UserService {
         }
         User user = userRepository.save(new User(name,password));
         return user;
+    }
 
+
+    public User logIn(String name, String password) {
+        if(!userRepository.existsByName(name)) {
+            throw new RuntimeException("Дурак зарегайся !");
+        }
+        User user = userRepository.findByName(name).orElseThrow(() -> new RuntimeException("Проблема при поиске пользоваеля"));
+        if (!user.getPassword().equals(password)) {
+            throw new RuntimeException("Не верный логин или пароль");
+        }
+        return user;
     }
 
     public List<User> getAllUsers() {

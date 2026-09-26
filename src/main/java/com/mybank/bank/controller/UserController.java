@@ -24,6 +24,11 @@ public class UserController {
         return userService.registerUser(body.get("name"), body.get("password"));
     }
 
+    @PostMapping("/login")
+    public User login(@RequestBody Map<String,String> body) throws Exception{
+        return userService.logIn(body.get("name"), body.get("password"));
+    }
+
     @GetMapping("/{id}")
     public User getUserByID(@PathVariable Long id) {
         return userService.getById(id);

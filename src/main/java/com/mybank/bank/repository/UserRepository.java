@@ -3,6 +3,10 @@ package com.mybank.bank.repository;
 import com.mybank.bank.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByName(String name);
+
+    Optional<User> findByName(String Name);
 }
